@@ -1,4 +1,4 @@
-from screen import Button, Screen
+from screens.screen import Button, Screen
 from config import GAME_SCREEN, INITIAL_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES
 import pygame
 import random

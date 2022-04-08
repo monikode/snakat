@@ -1,8 +1,8 @@
 import pygame
 from config import INITIAL_SCREEN
-from game_screen import GameScreen
-from initial_screen import InitialScreen
-from config_screen import ConfigScreen
+from screens.game_screen import GameScreen
+from screens.initial_screen import InitialScreen
+from screens.config_screen import ConfigScreen
 
 game_loop = True
 SCREENS = [InitialScreen(), ConfigScreen(), GameScreen()]

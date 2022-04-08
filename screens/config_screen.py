@@ -1,4 +1,4 @@
-from screen import Button, Screen
+from screens.screen import Button, Screen
 from config import CONFIG_SCREEN, INITIAL_SCREEN, is_clicked
 import pygame
 
