@@ -4,15 +4,13 @@ import pygame
 
 
 class ConfigScreen(Screen):
-    state = CONFIG_SCREEN
-    index = CONFIG_SCREEN
     cube_color = (234, 12, 139)
 
     def __init__(self):
-        super().__init__()
+        super().__init__(CONFIG_SCREEN, CONFIG_SCREEN)
         self.cube = [self.width/2, self.height/2, 40, 40]
         self.buttons = [
-            Button("initial_button_infos.png", 1070, 10, 120,
+            Button("imgs/initial_button_infos.png", 1070, 10, 120,
                    120, lambda: self.change_screen(INITIAL_SCREEN)),
         ]
 
@@ -32,14 +30,11 @@ class ConfigScreen(Screen):
         pass
 
     def draw(self):
-        self.surface.fill( (255, 255, 255))
-        light = pygame.Surface((self.width, self.height))
-        light.set_alpha(300-self.transition_animation*(300/self.transition))
-        light.fill( (255, 255, 255))
+        super().draw_frame()
 
         pygame.display.set_caption("Snakat - Config")
         pygame.draw.rect(self.surface, (12, 242, 9), [
                          0, 0, self.width, self.height])
         pygame.draw.rect(self.surface, self.cube_color, self.cube)
         self.draw_buttons()
-        self.surface.blit(light, (0, 0))
+        self.surface.blit(self.light, (0, 0))

@@ -1,5 +1,3 @@
-
-
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
 
@@ -7,13 +5,13 @@ INITIAL_SCREEN = 0
 CONFIG_SCREEN = 1
 GAME_SCREEN = 2
 
-
-#top, right, bottom, left
+# top, right, bottom, left
 HEAD = 0
 HEAD_UNDER = 5
 HEAD_CURVE = 6
 LINE = 1
-# topleft, topright bottomleft bottomright
+
+# top_left, top_right bottom_left bottom_right
 CURVE = 2
 TAIL = 3
 
