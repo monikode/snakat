@@ -21,7 +21,7 @@ However, be careful with the walls and its own body 🙀. You know the rules, ri
 
 We are making snakat using [Python](https://www.python.org/) and [Pygame](https://www.pygame.org/). [Pygame](https://www.pygame.org/) is a set of Python modules designed for writing video games. 
 
-We hope you enjoy the game 😻
+We hope you enjoy the game 😻.
 
 ## Status 📈
 
@@ -45,13 +45,13 @@ $ cd snakat
 # Run the code
 $ python main.py
 ```
->  To use the `python` command it is necessary to put the python installation path in the PATH environment variable or other things depending on your operating system. More information: [Mac user](https://python-docs.readthedocs.io/en/latest/starting/install3/osx.html), [Windows user](https://www.educative.io/edpresso/err-python-is-not-recognized-as-an-internal-or-external-command), [Linux user](https://linoxide.com/fix-bash-python-command-not-found-error/)
+>  To use the `python` command it is necessary to put the python installation path in the PATH environment variable or other things depending on your operating system. More information: [Mac user](https://python-docs.readthedocs.io/en/latest/starting/install3/osx.html), [Windows user](https://www.educative.io/edpresso/err-python-is-not-recognized-as-an-internal-or-external-command), [Linux user](https://linoxide.com/fix-bash-python-command-not-found-error/).
 
 ## How to contribute 🧐
 
 There are 4 ways to contribute to this project: solving or opening an issue, improving our documentation, or fixing a bug not founded yet.
 
-Before contributing, pay attention to some rules:
+### Before contributing, pay attention to some rules:
 
 1. Don't forget to comment your code.
 2. By standard, you must name python packages with lowercase letters and avoid using underline. Take for example the package named as `sprites`.
@@ -60,7 +60,7 @@ Before contributing, pay attention to some rules:
 
 > For more information about the language standards, you should read the [PEP 8](https://www.python.org/dev/peps/pep-0008/).
 
-#### Step-by-step to contribute:
+### Step-by-step to contribute:
 
 1. Fork this repo.
 2. Clone your forked repo.
