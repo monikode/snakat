@@ -7,6 +7,7 @@
     </a>
     <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
     <img alt="Issues" src="https://img.shields.io/github/issues/monikode/snakat">
+    <img alt="Code of conduct" src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg">
     <img alt="Fork" src="https://img.shields.io/github/forks/monikode/snakat?style=social">
     <img alt="Watchers" src="https://img.shields.io/github/watchers/monikode/snakat?style=social">
     <img alt="Stargazers" src="https://img.shields.io/github/stars/monikode/snakat?style=social">
