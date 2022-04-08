@@ -5,7 +5,7 @@ from initial_screen import InitialScreen
 from config_screen import ConfigScreen
 
 game_loop = True
-'SCREENS = [InitialScreen(), ConfigScreen(), GameScreen()]
+SCREENS = [InitialScreen(), ConfigScreen(), GameScreen()]
 screen = SCREENS[INITIAL_SCREEN].screen_in()
 screen_state = INITIAL_SCREEN
 
