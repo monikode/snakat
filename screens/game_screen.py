@@ -1,4 +1,4 @@
-from screen import Button, Screen
+from screens.screen import Button, Screen
 from config import GAME_SCREEN, INITIAL_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES
 import pygame
 import random
@@ -19,15 +19,12 @@ def where_is(el, prev_el):
     elif el[1] > prev_el[1]:
         pos_y = -1
 
-    return (pos_x, pos_y)
+    return pos_x, pos_y
 
 
 class GameScreen(Screen):
-    state = GAME_SCREEN
-    index = GAME_SCREEN
     head = (4, 4)
     head_direction = 0
-    food = (0, 0)
     cat = []
     points = 0
     x = 0
@@ -38,15 +35,15 @@ class GameScreen(Screen):
     tiles = SIZES[0]
 
     def __init__(self):
-        super().__init__()
-        self.cat_ss = pygame.image.load('cat_white_spritesheet.png')
-        self.tile_imgs = [pygame.image.load('tile_dark.png'), pygame.image.load('tile_light.png')]
-        self.food_image = pygame.image.load('food_1.png').convert_alpha()
+        super().__init__(GAME_SCREEN, GAME_SCREEN)
+        self.cat_ss = pygame.image.load('imgs/cat_white_spritesheet.png')
+        self.tile_imgs = [pygame.image.load('imgs/tile_dark.png'), pygame.image.load('imgs/tile_light.png')]
+        self.food_image = pygame.image.load('imgs/food_1.png').convert_alpha()
         self.set_random_food()
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
         self.start_y = (self.height - self.tiles*TILES_SIZE)/2
         self.buttons = [
-            Button("initial_button_infos.png", 1070, 10, 120,
+            Button("imgs/initial_button_infos.png", 1070, 10, 120,
                    120, lambda: self.change_screen(INITIAL_SCREEN)),
         ]
 
@@ -96,7 +93,8 @@ class GameScreen(Screen):
 
             self.head = (self.head[0] + self.x, self.head[1] + self.y)
 
-            if not self.running_animation and (self.head[0] < 0 or self.head[0] >= self.tiles or self.head[1] < 0 or self.head[1] >= self.tiles or self.head in self.cat):
+            if not self.running_animation and (self.head[0] < 0 or self.head[0] >= self.tiles or self.head[1] < 0 or
+                                               self.head[1] >= self.tiles or self.head in self.cat):
                 self.head = last_head
                 self.running_animation = True
                 self.animation = 2
@@ -125,11 +123,6 @@ class GameScreen(Screen):
 
             self.tick = 0
 
-        if len(self.cat) == 0:
-            HEAD = 4
-        else:
-            HEAD = 0
-
     def draw(self):
         pygame.display.set_caption("Snakat - Game: " + str(self.points))
         pygame.draw.rect(self.surface, (124, 122, 239), [
@@ -142,7 +135,8 @@ class GameScreen(Screen):
                     color = (240, 150, 250)
                 pygame.draw.rect(self.surface, color, [
                                  self.start_x + TILES_SIZE * j, self.start_y + TILES_SIZE * i, TILES_SIZE, TILES_SIZE])
-                self.surface.blit(self.tile_imgs[int(j % 2 == i % 2)], (self.start_x + TILES_SIZE * j, self.start_y + TILES_SIZE * i))
+                self.surface.blit(self.tile_imgs[int(j % 2 == i % 2)], (self.start_x + TILES_SIZE * j, self.start_y +
+                                                                        TILES_SIZE * i))
 
         for (index, el) in enumerate(self.cat):
             self.move_frag(index, self.animation, self.start_x +
@@ -150,7 +144,8 @@ class GameScreen(Screen):
         sub_head = self.cat_ss.subsurface(
             (HEAD * TILES_SIZE, self.animation * TILES_SIZE, TILES_SIZE, TILES_SIZE))
         self.surface.blit(pygame.transform.rotate(sub_head, self.head_direction * -90), (self.start_x + TILES_SIZE *
-                                                                                         self.head[0], self.start_y + TILES_SIZE * self.head[1]))
+                                                                                         self.head[0], self.start_y +
+                                                                                         TILES_SIZE * self.head[1]))
 
         self.surface.blit(self.food_image, (self.start_x + TILES_SIZE *
                                             self.food[0], self.start_y + TILES_SIZE * self.food[1]))
@@ -165,8 +160,7 @@ class GameScreen(Screen):
             if self.head != self.food and self.food not in self.cat:
                 break
 
-    def move_frag(self, i, time, el_x, el_y):
-        frag = 0
+    def move_frag(self, i, frame, el_x, el_y):
         prev_distance = where_is(self.cat[i], self.cat[i-1])
         if i == 0:
             prev_distance = where_is(self.cat[i+1], self.cat[i])
@@ -212,7 +206,7 @@ class GameScreen(Screen):
                         vertical = True
 
                 sub = self.cat_ss.subsurface(
-                    (frag * TILES_SIZE, time * TILES_SIZE, TILES_SIZE, TILES_SIZE))
+                    (frag * TILES_SIZE, frame * TILES_SIZE, TILES_SIZE, TILES_SIZE))
                 sub = pygame.transform.flip(sub, horizontal, vertical)
                 self.surface.blit(pygame.transform.rotate(
                     sub, direction * 90), (el_x, el_y))
@@ -229,7 +223,6 @@ class GameScreen(Screen):
                 frag = CURVE
                 # left and right
                 if next_distance[1] == 1 or prev_distance[1] == 1:
-                    direction = 0
                     if next_distance[0] == 1 or prev_distance[0] == 1:
                         direction = 3
                     else:
@@ -241,6 +234,6 @@ class GameScreen(Screen):
                         direction = 1
 
         sub = self.cat_ss.subsurface(
-            (frag * TILES_SIZE, time * TILES_SIZE, TILES_SIZE, TILES_SIZE))
+            (frag * TILES_SIZE, frame * TILES_SIZE, TILES_SIZE, TILES_SIZE))
         self.surface.blit(pygame.transform.rotate(
             sub, direction * 90), (el_x, el_y))

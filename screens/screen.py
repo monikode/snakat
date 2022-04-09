@@ -1,5 +1,5 @@
 import pygame
-from config import INITIAL_SCREEN, SCREEN_WIDTH, SCREEN_HEIGHT, SIZES, is_clicked
+from config import SCREEN_WIDTH, SCREEN_HEIGHT, SIZES, is_clicked
 from abc import ABC, abstractmethod
 
 
@@ -34,7 +34,7 @@ class ScreenParams:
     tiles = SIZES[0]
 
 
-class Screen(ABC, ScreenParams):
+class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
     surface: pygame.Surface
     caption = ""
     height = SCREEN_HEIGHT
@@ -44,12 +44,14 @@ class Screen(ABC, ScreenParams):
     transition_animation = -1
     transition_direction = 0
 
-    def __init__(self):
-        ScreenParams().__dict__
+    def __init__(self, state, index):
         self.surface = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         self.surface.fill((255, 255, 255))
+        self.state = state
+        self.index = index
         self.next_state = self.state
         self.buttons = []
+        self.light = pygame.Surface((self.width, self.height))
 
     def mouse_events(self, pos):
         for button in self.buttons:
@@ -69,7 +71,6 @@ class Screen(ABC, ScreenParams):
         raise NotImplementedError
 
     def main(self):
-
         self.keyboard_events()
         self.game()
         self.draw()
@@ -106,3 +107,9 @@ class Screen(ABC, ScreenParams):
             pygame.mouse.set_system_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_system_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def draw_frame(self):
+        self.surface.fill((255, 255, 255))
+
+        self.light.set_alpha(300 - self.transition_animation * (300 // self.transition))
+        self.light.fill((255, 255, 255))
