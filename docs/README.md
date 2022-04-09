@@ -72,8 +72,8 @@ There are 4 ways to contribute to this project: solving or opening an issue, imp
 6. Push your changes to your remote cloned repo: `git push origin feature/my-feature-name`.
 7. Submit your changes to approve by making a **pull request**.
 > In case you have questions check this guide about [how to contribute to GitHub](https://github.com/firstcontributions/first-contributions).
-
-> Here is our [Code of Counduct](https://github.com/monikode/snakat/blob/main/docs/CODE_OF_CONDUCT.md)
+>
+> Here is our [Code of Counduct](https://github.com/monikode/snakat/blob/main/docs/CODE_OF_CONDUCT.md).
 
 ## License 📝 
 
