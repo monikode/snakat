@@ -77,7 +77,7 @@ There are 4 ways to contribute to this project: solving or opening an issue, imp
 
 ## License 📝 
 
-This project is under [MIT license](https://github.com/atividades-lpc-2022/atividade_005_custom_breakout/blob/main/LICENSE).
+This project is under [MIT license](https://github.com/monikode/snakat/blob/main/docs/LICENSE).
 
 ## Contributors 🤝
 
