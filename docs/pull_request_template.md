@@ -18,10 +18,10 @@
 > Sometimes what is obvious for you may not be for someone else.
 
 **Impact**
-> If applicable, what does this changes modify? Does it impact other flavors? Any non-default setup?
+> If applicable, what do these changes modify?
 > Sometimes what is obvious for you may not be for someone else.
-> Maybe there's a analytics details? Analytics is hard and we just think of that at the end of the sprint, when our design decisions are already done.
-> It's no uncommon to have medium/big refactoring, just to put that specific tag in place.
+> Maybe there are analytics details? Analytics is hard and we just think of that at the end of the sprint, when our design decisions are already done.
+> It's not uncommon to have medium/big refactoring, just to put that specific tag in place.
 > The sooner we spot it, the better.
 
 **References**
@@ -31,12 +31,12 @@
 
 > Here you can tag interested contributors
 
-@Adriano-Henrique-de-Souza-Andrade
-
-@LarissaRoqueCarvalho
-
-@manupbastos
-
-@monikode
-
-@ronaldocoding
+>@Adriano-Henrique-de-Souza-Andrade
+>
+>@LarissaRoqueCarvalho
+>
+>@manupbastos
+>
+>@monikode
+>
+>@ronaldocoding
