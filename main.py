@@ -18,18 +18,15 @@ while game_loop:
             game_loop = False
         if event.type == pygame.MOUSEBUTTONUP:
             screen.mouse_events(pygame.mouse.get_pos())
-        else:
+        else: 
             screen.mouse_events([0, 0, 0, 0])  # what does this mean?
-
-    screen.main()
+ 
+    screen.main() 
 
     if screen.state != screen_state:
-        old_screen = screen
-        screen = SCREENS[screen.state].screen_in()
-        screen.tiles = old_screen.tiles
-        screen.speed = old_screen.speed
-        screen.cat_img = old_screen.cat_img
-        screen.food_img = old_screen.food_img
-
+        old_screen = screen 
+        screen = SCREENS[screen.state].screen_in(old_screen)
+        
 pygame.display.quit()
 pygame.quit()
+ 

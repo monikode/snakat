@@ -16,7 +16,7 @@ CURVE = 2
 TAIL = 3
 
 SIZES = [8, 14, 22]
-SPEED = [2, 4, 6]
+SPEED = ['slow', 'normal', 'fast']
 FOODS = [
     'food_1',
     'food_2',

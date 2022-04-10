@@ -97,7 +97,7 @@ class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
         self.transition_animation = self.transition
         self.transition_direction = -1
 
-    def screen_in(self):
+    def screen_in(self, old_screen = None):
         self.tick = 0
         self.transition_animation = 0
         self.transition_direction = 1

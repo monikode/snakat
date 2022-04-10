@@ -1,3 +1,4 @@
+from types import new_class
 from screens.screen import Button, Screen
 from config import GAME_SCREEN, INITIAL_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES
 import pygame
@@ -35,15 +36,14 @@ class GameScreen(Screen):
 
     def __init__(self):
         super().__init__(GAME_SCREEN, GAME_SCREEN)
-        self.cat_ss = pygame.image.load('imgs/'+self.cat_img+'_spritesheet.png')
-        self.tile_imgs = [pygame.image.load('imgs/tile_dark.png'), pygame.image.load('imgs/tile_light.png')]
+        self.cat_ss = pygame.image.load(
+            'imgs/'+self.cat_img+'_spritesheet.png')
+        self.tile_imgs = [pygame.image.load(
+            'imgs/tile_dark.png'), pygame.image.load('imgs/tile_light.png')]
         self.set_random_food()
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
         self.start_y = (self.height - self.tiles*TILES_SIZE)/2
-        self.buttons = [
-            Button("imgs/initial_button_infos.png", 1070, 10, 120,
-                   120, lambda: self.change_screen(INITIAL_SCREEN)),
-        ]
+        self.head = (self.tiles/2, self.tiles/2)
 
     def keyboard_events(self):
 
@@ -63,13 +63,19 @@ class GameScreen(Screen):
             self.y = 1
 
     def game(self):
-        speed = ((8-self.speed)/6) * 100
+        if (self.speed == 'slow'):
+            speed = 130
+        if (self.speed == 'normal'):
+            speed = 100
+        if (self.speed == 'fast'):
+            speed = 30
+
         if self.tick % speed/2 == 0 and self.animation < 2 and not self.running_animation:
             if self.animation == 0:
                 self.animation = 1
             else:
                 self.animation = 0
-        if self.tick == int(100/2) * (self.animation-1) and self.running_animation:
+        if self.tick == int(speed/2) * (self.animation-1) and self.running_animation:
             self.animation += 1
 
         if self.tick >= speed:
@@ -110,7 +116,7 @@ class GameScreen(Screen):
                 time.sleep(1)
                 self.running_animation = False
                 self.animation = 0
-                self.head = (4, 4)
+                self.head = (self.tiles/2, self.tiles/2)
                 self.cat = []
 
             if self.head == self.food:
@@ -123,8 +129,12 @@ class GameScreen(Screen):
             self.tick = 0
 
     def draw(self):
+        self.cat_ss = pygame.image.load(
+            'imgs/'+self.cat_img+'_spritesheet.png')
+        self.cat_ss = pygame.transform.smoothscale(
+            self.cat_ss, (self.cat_ss.get_width()/2, self.cat_ss.get_height()/2))
         pygame.display.set_caption("Snakat - Game: " + str(self.points))
-        pygame.draw.rect(self.surface, (124, 122, 239), [
+        pygame.draw.rect(self.surface, (214, 164, 103), [
                          0, 0, self.width, self.height])
 
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
@@ -137,8 +147,7 @@ class GameScreen(Screen):
                     color = (240, 150, 250)
                 pygame.draw.rect(self.surface, color, [
                                  self.start_x + TILES_SIZE * j, self.start_y + TILES_SIZE * i, TILES_SIZE, TILES_SIZE])
-                self.surface.blit(self.tile_imgs[int(j % 2 == i % 2)], (self.start_x + TILES_SIZE * j, self.start_y +
-                                                                        TILES_SIZE * i))
+                
 
         for (index, el) in enumerate(self.cat):
             self.move_frag(index, self.animation, self.start_x +
@@ -148,9 +157,10 @@ class GameScreen(Screen):
         self.surface.blit(pygame.transform.rotate(sub_head, self.head_direction * -90), (self.start_x + TILES_SIZE *
                                                                                          self.head[0], self.start_y +
                                                                                          TILES_SIZE * self.head[1]))
-        food_sprite = pygame.image.load('imgs/'+self.food_img+'.png').convert_alpha()
+        food_sprite = pygame.image.load(
+            'imgs/'+self.food_img+'.png').convert_alpha()
         self.surface.blit(food_sprite, (self.start_x + TILES_SIZE *
-                                            self.food[0], self.start_y + TILES_SIZE * self.food[1]))
+                                        self.food[0], self.start_y + TILES_SIZE * self.food[1]))
         self.draw_buttons()
 
     def set_random_food(self):
@@ -239,3 +249,16 @@ class GameScreen(Screen):
             (frag * TILES_SIZE, frame * TILES_SIZE, TILES_SIZE, TILES_SIZE))
         self.surface.blit(pygame.transform.rotate(
             sub, direction * 90), (el_x, el_y))
+
+    def screen_in(self, old_screen):
+        self = super().screen_in(old_screen)
+        self.tiles = old_screen.tiles
+        self.speed = old_screen.speed
+        self.cat_img = old_screen.cat_img
+        self.food_img = old_screen.food_img
+        self.running_animation = False
+        self.animation = 0
+        self.head = (self.tiles/2, self.tiles/2)
+        self.cat = []
+        self.set_random_food()
+        return self

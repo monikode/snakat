@@ -10,6 +10,7 @@ class ConfigScreen(Screen):
         super().__init__(CONFIG_SCREEN, CONFIG_SCREEN)
         self.cube = [200, 100, 800, 500]
         self.set_config_list()
+        self.bg = pygame.image.load("imgs/config_bg.png")
 
     def mouse_events(self, pos):
         super().mouse_events(pos)
@@ -60,18 +61,18 @@ class ConfigScreen(Screen):
         if index > 0:
             element_img = self.get_config_img(list[index-1])
             element_img.set_alpha(150)
-            self.surface.blit(element_img, (350, y))
+            self.surface.blit(element_img, (360, y))
 
         element_img = self.get_config_img(list[index])
         element_img.set_alpha(300)
 
-        self.surface.blit(element_img, (500, y))
+        self.surface.blit(element_img, (520, y))
 
         if index < len(list) - 1:
             element_img = self.get_config_img(list[index+1])
             element_img.set_alpha(150)
 
-            self.surface.blit(element_img, (650, y))
+            self.surface.blit(element_img, (680, y))
 
     def count(self, row, direction):
         self.list[row][1] += direction
@@ -81,24 +82,23 @@ class ConfigScreen(Screen):
         list_buttons = []
 
         pygame.display.set_caption("Snakat - Config")
-        pygame.draw.rect(self.surface, (12, 242, 9), [
-                         0, 0, self.width, self.height])
+        self.surface.blit(self.bg, (0, 0))
         self.draw_buttons()
 
         # lista vertical
         # food
         for (index, row) in enumerate(self.list):
-            y = 100 + index * (25+75)
+            y = 180 + index * (25+75)
             self.draw_row(row[0], row[1], y)
             if row[1] > 0:
                 list_buttons.append(
-                    Button("imgs/configs/arrow_left.png", 200, y,
+                    Button("imgs/configs/button_arrow_left.png", 200, y,
                            160, 75, lambda i: self.count(i, -1), index)
                 )
 
             if row[1] < len(row[0]) - 1:
                 list_buttons.append(
-                    Button("imgs/configs/arrow_right.png", 840, y,
+                    Button("imgs/configs/button_arrow_right.png", 840, y,
                            160, 75, lambda i: self.count(i, 1), index)
                 )
 
@@ -106,8 +106,8 @@ class ConfigScreen(Screen):
         # cat color
 
         self.buttons = [
-            Button("imgs/initial_button_infos.png", 1070, 10, 120,
-                   120, lambda: self.change_screen(GAME_SCREEN)),
+            Button("imgs/button_play.png", 505, 649, 191,
+                   85, lambda: self.change_screen(GAME_SCREEN)),
         ] + list_buttons
 
         self.surface.blit(self.light, (0, 0))
