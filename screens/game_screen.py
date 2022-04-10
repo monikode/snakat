@@ -32,13 +32,11 @@ class GameScreen(Screen):
     food = (0, 0)
     animation = 0
     running_animation = False
-    tiles = SIZES[0]
 
     def __init__(self):
         super().__init__(GAME_SCREEN, GAME_SCREEN)
-        self.cat_ss = pygame.image.load('imgs/cat_white_spritesheet.png')
+        self.cat_ss = pygame.image.load('imgs/'+self.cat_img+'_spritesheet.png')
         self.tile_imgs = [pygame.image.load('imgs/tile_dark.png'), pygame.image.load('imgs/tile_light.png')]
-        self.food_image = pygame.image.load('imgs/food_1.png').convert_alpha()
         self.set_random_food()
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
         self.start_y = (self.height - self.tiles*TILES_SIZE)/2
@@ -65,7 +63,8 @@ class GameScreen(Screen):
             self.y = 1
 
     def game(self):
-        if self.tick % 50 == 0 and self.animation < 2 and not self.running_animation:
+        speed = ((8-self.speed)/6) * 100
+        if self.tick % speed/2 == 0 and self.animation < 2 and not self.running_animation:
             if self.animation == 0:
                 self.animation = 1
             else:
@@ -73,7 +72,7 @@ class GameScreen(Screen):
         if self.tick == int(100/2) * (self.animation-1) and self.running_animation:
             self.animation += 1
 
-        if self.tick >= 100:
+        if self.tick >= speed:
             if self.y == -1:
                 self.head_direction = 0
             if self.x == -1:
@@ -128,6 +127,9 @@ class GameScreen(Screen):
         pygame.draw.rect(self.surface, (124, 122, 239), [
                          0, 0, self.width, self.height])
 
+        self.start_x = (self.width - self.tiles*TILES_SIZE)/2
+        self.start_y = (self.height - self.tiles*TILES_SIZE)/2
+
         for i in range(self.tiles):
             for j in range(self.tiles):
                 color = (211, 118, 222)
@@ -146,8 +148,8 @@ class GameScreen(Screen):
         self.surface.blit(pygame.transform.rotate(sub_head, self.head_direction * -90), (self.start_x + TILES_SIZE *
                                                                                          self.head[0], self.start_y +
                                                                                          TILES_SIZE * self.head[1]))
-
-        self.surface.blit(self.food_image, (self.start_x + TILES_SIZE *
+        food_sprite = pygame.image.load('imgs/'+self.food_img+'.png').convert_alpha()
+        self.surface.blit(food_sprite, (self.start_x + TILES_SIZE *
                                             self.food[0], self.start_y + TILES_SIZE * self.food[1]))
         self.draw_buttons()
 

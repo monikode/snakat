@@ -24,7 +24,12 @@ while game_loop:
     screen.main()
 
     if screen.state != screen_state:
+        old_screen = screen
         screen = SCREENS[screen.state].screen_in()
+        screen.tiles = old_screen.tiles
+        screen.speed = old_screen.speed
+        screen.cat_img = old_screen.cat_img
+        screen.food_img = old_screen.food_img
 
 pygame.display.quit()
 pygame.quit()

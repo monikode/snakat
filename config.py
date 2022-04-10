@@ -17,6 +17,14 @@ TAIL = 3
 
 SIZES = [8, 14, 22]
 SPEED = [2, 4, 6]
+FOODS = [
+    'food_1',
+    'food_2',
+    'food_3',
+    'food_4',
+]
+CATS = ['cat_white',
+        'cat_bw', 'cat_black', 'cat_orange']
 
 TILES_SIZE = 32
 

@@ -1,18 +1,20 @@
+from asyncio.windows_events import NULL
 import pygame
-from config import SCREEN_WIDTH, SCREEN_HEIGHT, SIZES, is_clicked
+from config import CATS, FOODS, SCREEN_WIDTH, SCREEN_HEIGHT, SIZES, SPEED, is_clicked
 from abc import ABC, abstractmethod
 
 
 class Button:
     is_hovering = 0
 
-    def __init__(self, image, x, y, width, height, onclick):
+    def __init__(self, image, x, y, width, height, onclick, click_param = None):
         self.image = pygame.image.load(image).convert_alpha()
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.onclick = onclick
+        self.click_param = click_param
 
     def draw(self, surface):
         self.is_hovering = 0
@@ -23,7 +25,10 @@ class Button:
                      (self.is_hovering * self.width, 0, self.width, self.height))
 
     def click(self):
-        self.onclick()
+        if self.click_param != None:
+            self.onclick(self.click_param)
+        else:
+            self.onclick()
 
     def set_pos(self, x, y):
         self.x = x
@@ -31,7 +36,11 @@ class Button:
 
 
 class ScreenParams:
-    tiles = SIZES[0]
+    def __init__(self):
+        self.tiles = SIZES[0]
+        self.food_img = FOODS[0]
+        self.cat_img = CATS[0]
+        self.speed = SPEED[1]
 
 
 class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
@@ -45,6 +54,7 @@ class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
     transition_direction = 0
 
     def __init__(self, state, index):
+        ScreenParams.__init__(Screen)
         self.surface = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         self.surface.fill((255, 255, 255))
         self.state = state
