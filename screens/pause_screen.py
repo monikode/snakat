@@ -25,7 +25,7 @@ class PauseScreen(Screen):
 
         self.buttons[0].set_pos(485 - 50 + self.transition_animation * (50 / self.transition), 300)
         self.buttons[1].set_pos(465 + 50 - self.transition_animation * (50 / self.transition), 400)
-        self.buttons[2].set_pos(665 + 50 - self.transition_animation * (50 / self.transition), 415)
+        self.buttons[2].set_pos(665 + 50 - self.transition_animation * (50 / self.transition), 400)
 
         pygame.display.set_caption("Snakat - Pause")
         self.surface.blit(pygame.transform.scale(self.bg, (self.width, self.height)), (0, 0))
