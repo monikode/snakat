@@ -8,7 +8,7 @@ class PauseScreen(Screen):
 
         self.buttons = [
             Button("imgs/button_resume.png", 900, 900, 250, 100, lambda: self.change_screen(GAME_SCREEN)),
-            Button("imgs/button_reset.png", 400, 500, 191, 100, lambda: self.change_screen(INITIAL_SCREEN)),
+            Button("imgs/button_reset.png", 400, 500, 191, 100, lambda: self.change_screen(GAME_SCREEN)),
             Button("imgs/button_config.png", 400, 500, 88, 85, lambda: self.change_screen(CONFIG_SCREEN)),
         ]
 
