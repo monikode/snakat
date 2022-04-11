@@ -284,6 +284,9 @@ class GameScreen(Screen):
 
     def screen_in(self, old_screen):
         self = super().screen_in(old_screen)
+        pygame.mixer.music.load("sounds/cat_song.mp3")
+        pygame.mixer.music.play(-1, 0, 0)
+        pygame.mixer.music.set_volume(0.4)
 
         if not self.paused:
             self.reset()
