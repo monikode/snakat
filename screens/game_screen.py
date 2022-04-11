@@ -45,7 +45,8 @@ class GameScreen(Screen):
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
         self.start_y = (50 + self.height - self.tiles*TILES_SIZE)/2
         self.buttons = [
-            Button("imgs/button_pause.png", 1010, 80, 88, 88, lambda: self.change_screen(PAUSE_SCREEN))
+            Button("imgs/button_pause.png", 1010, 80, 88, 88,
+                   lambda: self.change_screen(PAUSE_SCREEN))
         ]
         self.head = (self.tiles/2, self.tiles/2)
 
@@ -65,6 +66,16 @@ class GameScreen(Screen):
         if pygame.key.get_pressed()[pygame.K_DOWN] and self.y != -1:
             self.x = 0
             self.y = 1
+
+    def reset(self):
+        self.running_animation = False
+        self.animation = 0
+        self.head = (self.tiles/2, self.tiles/2)
+        self.cat = []
+        if (self.points > self.high_score):
+            self.high_score = self.points
+        self.points = 0
+        self.set_random_food()
 
     def game(self):
         if (self.speed == 'slow'):
@@ -119,23 +130,15 @@ class GameScreen(Screen):
             if self.running_animation and self.animation == 4:
                 time.sleep(1)
                 self.change_screen(END_GAME_SCREEN)
-                self.running_animation = False
-                self.animation = 0
-                self.head = (self.tiles/2, self.tiles/2)
-                self.cat = []
-                self.set_random_food()
-
+                self.reset()
 
             if self.head == self.food:
                 self.points += 1
                 if self.is_win():
                     time.sleep(1)
                     self.change_screen(END_GAME_SCREEN)
-                    self.running_animation = False
-                    self.animation = 0
-                    self.head = (self.tiles/2, self.tiles/2)
-                    self.cat = []
-                    self.set_random_food()
+                    self.reset()
+
                 if len(self.cat) == 0:
                     self.cat.append(self.head)
                 self.cat.append(last_pos)
@@ -187,7 +190,6 @@ class GameScreen(Screen):
 
             if self.head != self.food and self.food not in self.cat:
                 break
-    
 
     def move_frag(self, i, frame, el_x, el_y):
         prev_distance = where_is(self.cat[i], self.cat[i-1])
@@ -266,11 +268,3 @@ class GameScreen(Screen):
             (frag * TILES_SIZE, frame * TILES_SIZE, TILES_SIZE, TILES_SIZE))
         self.surface.blit(pygame.transform.rotate(
             sub, direction * 90), (el_x, el_y))
-
-    def screen_in(self, old_screen):
-        self = super().screen_in(old_screen)
-        self.tiles = old_screen.tiles
-        self.speed = old_screen.speed
-        self.cat_img = old_screen.cat_img
-        self.food_img = old_screen.food_img
-        return self

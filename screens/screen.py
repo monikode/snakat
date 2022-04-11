@@ -62,6 +62,8 @@ class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
         self.next_state = self.state
         self.buttons = []
         self.light = pygame.Surface((self.width, self.height))
+        self.points = 0
+        self.high_score = 0
 
     def mouse_events(self, pos):
         for button in self.buttons:
@@ -102,6 +104,14 @@ class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
         self.transition_animation = 0
         self.transition_direction = 1
         self.state = self.index
+        
+        self.tiles = old_screen.tiles
+        self.speed = old_screen.speed
+        self.cat_img = old_screen.cat_img
+        self.food_img = old_screen.food_img
+        self.points = old_screen.points
+        self.high_score = old_screen.high_score
+
         return self
 
     def screen_out(self):

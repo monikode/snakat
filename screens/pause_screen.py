@@ -43,11 +43,3 @@ class PauseScreen(Screen):
         self.draw_buttons()
         self.surface.blit(self.light, (0, 0))
 
-    def screen_in(self, old_screen=None):
-
-        self = super().screen_in(old_screen)
-        self.tiles = old_screen.tiles
-        self.speed = old_screen.speed
-        self.cat_img = old_screen.cat_img
-        self.food_img = old_screen.food_img
-        return self
