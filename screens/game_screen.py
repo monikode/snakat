@@ -1,6 +1,6 @@
 from types import new_class
 from screens.screen import Button, Screen
-from config import GAME_SCREEN, INITIAL_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES
+from config import GAME_SCREEN, INITIAL_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES, PAUSE_SCREEN
 import pygame
 import random
 import time
@@ -44,6 +44,9 @@ class GameScreen(Screen):
         self.set_random_food()
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
         self.start_y = (50 + self.height - self.tiles*TILES_SIZE)/2
+        self.buttons = [
+            Button("imgs/button_config.png", 1010, 10, 88, 88, lambda: self.change_screen(PAUSE_SCREEN))
+        ]
         self.head = (self.tiles/2, self.tiles/2)
 
     def keyboard_events(self):

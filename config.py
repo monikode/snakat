@@ -4,6 +4,7 @@ SCREEN_HEIGHT = 800
 INITIAL_SCREEN = 0
 CONFIG_SCREEN = 1
 GAME_SCREEN = 2
+PAUSE_SCREEN = 3
 
 # top, right, bottom, left
 HEAD = 0
