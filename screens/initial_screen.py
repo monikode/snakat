@@ -14,6 +14,7 @@ class InitialScreen(Screen):
         ]
 
         self.bg = pygame.image.load("imgs/initial_page.png")
+        self.logo = pygame.image.load("imgs/logo.png")
 
     def keyboard_events(self):
         # not implemented
@@ -32,4 +33,5 @@ class InitialScreen(Screen):
         pygame.display.set_caption("Snakat - Initial")
         self.surface.blit(pygame.transform.scale(self.bg, (self.width, self.height)), (0, 0))
         self.draw_buttons()
+        self.surface.blit(self.logo, (425, 40))
         self.surface.blit(self.light, (0, 0))
