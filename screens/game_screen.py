@@ -1,6 +1,6 @@
 from types import new_class
 from screens.screen import Button, Screen
-from config import GAME_SCREEN, INITIAL_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES, PAUSE_SCREEN
+from config import GAME_SCREEN, END_GAME_SCREEN, INITIAL_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES, PAUSE_SCREEN
 import pygame
 import random
 import time
@@ -45,7 +45,7 @@ class GameScreen(Screen):
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
         self.start_y = (50 + self.height - self.tiles*TILES_SIZE)/2
         self.buttons = [
-            Button("imgs/button_config.png", 1010, 10, 88, 88, lambda: self.change_screen(PAUSE_SCREEN))
+            Button("imgs/button_pause.png", 1010, 10, 88, 88, lambda: self.change_screen(PAUSE_SCREEN))
         ]
         self.head = (self.tiles/2, self.tiles/2)
 
@@ -118,6 +118,7 @@ class GameScreen(Screen):
 
             if self.running_animation and self.animation == 4:
                 time.sleep(1)
+                self.change_screen(END_GAME_SCREEN)
                 self.running_animation = False
                 self.animation = 0
                 self.head = (self.tiles/2, self.tiles/2)
@@ -125,6 +126,9 @@ class GameScreen(Screen):
 
             if self.head == self.food:
                 self.points += 1
+                if self.points == (self.tiles**2 - 2):
+                    time.sleep(1)
+                    self.change_screen(END_GAME_SCREEN)
                 if len(self.cat) == 0:
                     self.cat.append(self.head)
                 self.cat.append(last_pos)

@@ -4,9 +4,10 @@ from screens.game_screen import GameScreen
 from screens.initial_screen import InitialScreen
 from screens.config_screen import ConfigScreen
 from screens.pause_screen import PauseScreen
+from screens.end_game_screen import EndGameScreen
 
 game_loop = True
-SCREENS = [InitialScreen(), ConfigScreen(), GameScreen(), PauseScreen()]
+SCREENS = [InitialScreen(), ConfigScreen(), GameScreen(), PauseScreen(), EndGameScreen()]
 screen = SCREENS[INITIAL_SCREEN].screen_in()
 screen_state = INITIAL_SCREEN
 
