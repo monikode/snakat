@@ -1,6 +1,6 @@
 from types import new_class
 from screens.screen import Button, Screen
-from config import GAME_SCREEN, END_GAME_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES, PAUSE_SCREEN
+from config import FONT, GAME_SCREEN, END_GAME_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES, PAUSE_SCREEN
 import pygame
 import random
 import time
@@ -22,6 +22,7 @@ def where_is(el, prev_el):
 
     return pos_x, pos_y
 
+pygame.font.init()
 
 class GameScreen(Screen):
     head = (4, 4)
@@ -33,6 +34,7 @@ class GameScreen(Screen):
     food = (0, 0)
     animation = 0
     running_animation = False
+    game_font = pygame.font.Font(FONT, 20)
 
     def __init__(self):
         super().__init__(GAME_SCREEN, GAME_SCREEN)
@@ -180,6 +182,12 @@ class GameScreen(Screen):
             'imgs/'+self.food_img+'.png').convert_alpha()
         self.surface.blit(food_sprite, (self.start_x + TILES_SIZE *
                                         self.food[0], self.start_y + TILES_SIZE * self.food[1]))
+
+        score_text = self.game_font.render(f'SCORE: {self.points}', False, (82, 47, 57))
+        high_score_text = self.game_font.render(f'HIGH SCORE: {self.high_score}', False, (82, 47, 57))
+        self.surface.blit(score_text, (410, 5))
+        self.surface.blit(high_score_text, (600, 5))
+
         self.draw_buttons()
 
     def set_random_food(self):

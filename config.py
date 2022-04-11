@@ -30,6 +30,7 @@ CATS = ['cat_white',
 
 TILES_SIZE = 32
 
+FONT = 'fonts/Pixeled.ttf'
 
 def is_clicked(click_coord, rect):
     if click_coord[0] < rect[0] or click_coord[0] > rect[0] + rect[2]:
