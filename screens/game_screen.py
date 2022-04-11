@@ -40,9 +40,10 @@ class GameScreen(Screen):
             'imgs/'+self.cat_img+'_spritesheet.png')
         self.tile_imgs = [pygame.image.load(
             'imgs/tile_dark.png'), pygame.image.load('imgs/tile_light.png')]
+        self.bg = pygame.image.load('imgs/game_bg.png')
         self.set_random_food()
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
-        self.start_y = (self.height - self.tiles*TILES_SIZE)/2
+        self.start_y = (50 + self.height - self.tiles*TILES_SIZE)/2
         self.head = (self.tiles/2, self.tiles/2)
 
     def keyboard_events(self):
@@ -136,9 +137,9 @@ class GameScreen(Screen):
         pygame.display.set_caption("Snakat - Game: " + str(self.points))
         pygame.draw.rect(self.surface, (214, 164, 103), [
                          0, 0, self.width, self.height])
-
+        self.surface.blit(self.bg, (0, 0))
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
-        self.start_y = (self.height - self.tiles*TILES_SIZE)/2
+        self.start_y = (50+self.height - self.tiles*TILES_SIZE)/2
 
         for i in range(self.tiles):
             for j in range(self.tiles):
@@ -147,7 +148,8 @@ class GameScreen(Screen):
                     color = (240, 150, 250)
                 pygame.draw.rect(self.surface, color, [
                                  self.start_x + TILES_SIZE * j, self.start_y + TILES_SIZE * i, TILES_SIZE, TILES_SIZE])
-                
+                self.surface.blit(self.tile_imgs[int(j % 2 == i % 2)], (self.start_x + TILES_SIZE * j, self.start_y +
+                                                                        TILES_SIZE * i))
 
         for (index, el) in enumerate(self.cat):
             self.move_frag(index, self.animation, self.start_x +
