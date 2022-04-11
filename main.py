@@ -6,7 +6,7 @@ from screens.config_screen import ConfigScreen
 from screens.pause_screen import PauseScreen
 
 game_loop = True
-SCREENS = [InitialScreen(), ConfigScreen(), GameScreen()]
+SCREENS = [InitialScreen(), ConfigScreen(), GameScreen(), PauseScreen()]
 screen = SCREENS[INITIAL_SCREEN].screen_in()
 screen_state = INITIAL_SCREEN
 
