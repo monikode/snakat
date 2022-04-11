@@ -45,7 +45,7 @@ class GameScreen(Screen):
         self.start_x = (self.width - self.tiles*TILES_SIZE)/2
         self.start_y = (50 + self.height - self.tiles*TILES_SIZE)/2
         self.buttons = [
-            Button("imgs/button_config.png", 1010, 10, 88, 88, lambda: self.change_screen(PAUSE_SCREEN))
+            Button("imgs/button_pause.png", 1010, 80, 88, 88, lambda: self.change_screen(PAUSE_SCREEN))
         ]
         self.head = (self.tiles/2, self.tiles/2)
 
