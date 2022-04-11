@@ -1,7 +1,7 @@
 from screens.screen import Button, Screen
 from config import CONFIG_SCREEN, GAME_SCREEN, INITIAL_SCREEN
 import pygame
-
+pygame.mixer.init()
 
 class InitialScreen(Screen):
     def __init__(self):
@@ -15,6 +15,8 @@ class InitialScreen(Screen):
 
         self.bg = pygame.image.load("imgs/initial_page.png")
         self.logo = pygame.image.load("imgs/logo.png")
+        pygame.mixer.music.load("sounds/menu_cat.mp3")
+        pygame.mixer.music.play(-1, 0, 0)
 
     def keyboard_events(self):
         # not implemented

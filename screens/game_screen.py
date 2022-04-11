@@ -135,6 +135,8 @@ class GameScreen(Screen):
                 self.reset()
 
             if self.head == self.food:
+                comendo = pygame.mixer.Sound("sounds/gatinho_comendo.mp3")
+                pygame.mixer.Sound.play(comendo)
                 self.points += 1
                 if self.is_win():
                     time.sleep(1)
