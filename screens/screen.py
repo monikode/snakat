@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 class Button:
     is_hovering = 0
 
-    def __init__(self, image, x, y, width, height, onclick, click_param = None):
+    def __init__(self, image, x, y, width, height, onclick, click_param=None):
         self.image = pygame.image.load(image).convert_alpha()
         self.x = x
         self.y = y
@@ -99,18 +99,19 @@ class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
         self.transition_animation = self.transition
         self.transition_direction = -1
 
-    def screen_in(self, old_screen = None):
+    def screen_in(self, old_screen=None):
         self.tick = 0
         self.transition_animation = 0
         self.transition_direction = 1
         self.state = self.index
-        
-        self.tiles = old_screen.tiles
-        self.speed = old_screen.speed
-        self.cat_img = old_screen.cat_img
-        self.food_img = old_screen.food_img
-        self.points = old_screen.points
-        self.high_score = old_screen.high_score
+
+        if old_screen:
+            self.tiles = old_screen.tiles
+            self.speed = old_screen.speed
+            self.cat_img = old_screen.cat_img
+            self.food_img = old_screen.food_img
+            self.points = old_screen.points
+            self.high_score = old_screen.high_score
 
         return self
 
@@ -131,7 +132,8 @@ class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
     def draw_frame(self):
         self.surface.fill((255, 255, 255))
 
-        self.light.set_alpha(300 - self.transition_animation * (300 // self.transition))
+        self.light.set_alpha(
+            300 - self.transition_animation * (300 // self.transition))
         self.light.fill((255, 255, 255))
 
     def is_win(self):
