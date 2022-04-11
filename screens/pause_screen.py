@@ -1,15 +1,19 @@
 from screens.screen import Screen, Button
-from config import PAUSE_SCREEN, GAME_SCREEN,CONFIG_SCREEN, INITIAL_SCREEN
+from config import PAUSE_SCREEN, GAME_SCREEN, CONFIG_SCREEN, INITIAL_SCREEN
 import pygame
+
 
 class PauseScreen(Screen):
     def __init__(self):
         super().__init__(PAUSE_SCREEN, PAUSE_SCREEN)
 
         self.buttons = [
-            Button("imgs/button_resume.png", 900, 900, 250, 100, lambda: self.change_screen(GAME_SCREEN)),
-            Button("imgs/button_reset.png", 400, 500, 191, 100, lambda: self.change_screen(GAME_SCREEN)),
-            Button("imgs/button_config.png", 400, 500, 88, 85, lambda: self.change_screen(CONFIG_SCREEN)),
+            Button("imgs/button_resume.png", 900, 900, 250, 100,
+                   lambda: self.change_screen(GAME_SCREEN)),
+            Button("imgs/button_reset.png", 400, 500, 191, 100,
+                   self.reset_game),
+            Button("imgs/button_config.png", 400, 500, 88, 85,
+                   lambda: self.change_screen(CONFIG_SCREEN)),
         ]
 
         self.bg = pygame.image.load("imgs/pause_bg.png")
@@ -17,17 +21,33 @@ class PauseScreen(Screen):
     def keyboard_events(self):
         pass
 
+    def reset_game(self):
+        self.change_screen(GAME_SCREEN)
+
     def game(self):
         pass
 
     def draw(self):
         super().draw_frame()
 
-        self.buttons[0].set_pos(485 - 50 + self.transition_animation * (50 / self.transition), 300)
-        self.buttons[1].set_pos(465 + 50 - self.transition_animation * (50 / self.transition), 400)
-        self.buttons[2].set_pos(665 + 50 - self.transition_animation * (50 / self.transition), 400)
+        self.buttons[0].set_pos(
+            485 - 50 + self.transition_animation * (50 / self.transition), 300)
+        self.buttons[1].set_pos(
+            465 + 50 - self.transition_animation * (50 / self.transition), 400)
+        self.buttons[2].set_pos(
+            665 + 50 - self.transition_animation * (50 / self.transition), 400)
 
         pygame.display.set_caption("Snakat - Pause")
-        self.surface.blit(pygame.transform.scale(self.bg, (self.width, self.height)), (0, 0))
+        self.surface.blit(pygame.transform.scale(
+            self.bg, (self.width, self.height)), (0, 0))
         self.draw_buttons()
         self.surface.blit(self.light, (0, 0))
+
+    def screen_in(self, old_screen=None):
+
+        self = super().screen_in(old_screen)
+        self.tiles = old_screen.tiles
+        self.speed = old_screen.speed
+        self.cat_img = old_screen.cat_img
+        self.food_img = old_screen.food_img
+        return self

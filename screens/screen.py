@@ -123,3 +123,6 @@ class Screen(ABC, ScreenParams):  # ABC stands for AbstractClass
 
         self.light.set_alpha(300 - self.transition_animation * (300 // self.transition))
         self.light.fill((255, 255, 255))
+
+    def is_win(self):
+        return self.points == self.tiles**2 - 2

@@ -36,7 +36,7 @@ class EndGameScreen(Screen):
         self.points = old_screen.points
         self.tiles = old_screen.tiles
         
-        if self.points == (self.tiles**2 - 2):
+        if self.is_win():
             self.bg = pygame.image.load("imgs/game_over_win_bg.png")
 
         return self

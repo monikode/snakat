@@ -1,6 +1,6 @@
 from types import new_class
 from screens.screen import Button, Screen
-from config import GAME_SCREEN, END_GAME_SCREEN, INITIAL_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES, PAUSE_SCREEN
+from config import GAME_SCREEN, END_GAME_SCREEN, TILES_SIZE, LINE, CURVE, TAIL, HEAD_CURVE, HEAD_UNDER, HEAD, SIZES, PAUSE_SCREEN
 import pygame
 import random
 import time
@@ -123,12 +123,19 @@ class GameScreen(Screen):
                 self.animation = 0
                 self.head = (self.tiles/2, self.tiles/2)
                 self.cat = []
+                self.set_random_food()
+
 
             if self.head == self.food:
                 self.points += 1
-                if self.points == (self.tiles**2 - 2):
+                if self.is_win():
                     time.sleep(1)
                     self.change_screen(END_GAME_SCREEN)
+                    self.running_animation = False
+                    self.animation = 0
+                    self.head = (self.tiles/2, self.tiles/2)
+                    self.cat = []
+                    self.set_random_food()
                 if len(self.cat) == 0:
                     self.cat.append(self.head)
                 self.cat.append(last_pos)
@@ -180,6 +187,7 @@ class GameScreen(Screen):
 
             if self.head != self.food and self.food not in self.cat:
                 break
+    
 
     def move_frag(self, i, frame, el_x, el_y):
         prev_distance = where_is(self.cat[i], self.cat[i-1])
@@ -265,9 +273,4 @@ class GameScreen(Screen):
         self.speed = old_screen.speed
         self.cat_img = old_screen.cat_img
         self.food_img = old_screen.food_img
-        self.running_animation = False
-        self.animation = 0
-        self.head = (self.tiles/2, self.tiles/2)
-        self.cat = []
-        self.set_random_food()
         return self
