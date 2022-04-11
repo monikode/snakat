@@ -17,9 +17,11 @@ class EndGameScreen(Screen):
         self.bg = pygame.image.load("imgs/game_over_bg.png")
 
     def keyboard_events(self):
+        #do nothing
         pass
 
     def game(self):
+        #do nothing
         pass
 
     def draw(self):

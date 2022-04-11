@@ -19,6 +19,7 @@ class PauseScreen(Screen):
         self.bg = pygame.image.load("imgs/pause_bg.png")
 
     def keyboard_events(self):
+        #do nothing
         pass
 
     def reset_game(self):
@@ -30,6 +31,7 @@ class PauseScreen(Screen):
         self.change_screen(CONFIG_SCREEN)
 
     def game(self):
+        #do nothing
         pass
 
     def draw(self):

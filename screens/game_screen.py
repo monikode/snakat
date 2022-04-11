@@ -38,8 +38,7 @@ class GameScreen(Screen):
 
     def __init__(self):
         super().__init__(GAME_SCREEN, GAME_SCREEN)
-        self.cat_ss = pygame.image.load(
-            'imgs/'+self.cat_img+'_spritesheet.png')
+        self.cat_ss = self.get_img(self.cat_img+'_spritesheet') 
         self.tile_imgs = [pygame.image.load(
             'imgs/tile_dark.png'), pygame.image.load('imgs/tile_light.png')]
         self.bg = pygame.image.load('imgs/game_bg.png')
@@ -68,7 +67,9 @@ class GameScreen(Screen):
         if pygame.key.get_pressed()[pygame.K_DOWN] and self.y != -1:
             self.x = 0
             self.y = 1
-
+    def get_img(self, name):
+        return  pygame.image.load(
+            'imgs/'+name+'.png').convert_alpha()
     def reset(self):
         self.running_animation = False
         self.animation = 0
@@ -81,11 +82,11 @@ class GameScreen(Screen):
 
     def game(self):
         if (self.speed == 'slow'):
-            speed = 130
+            speed = 120
         if (self.speed == 'normal'):
-            speed = 100
+            speed = 80
         if (self.speed == 'fast'):
-            speed = 30
+            speed = 20
 
         if self.tick % speed/2 == 0 and self.animation < 2 and not self.running_animation:
             if self.animation == 0:
@@ -151,8 +152,7 @@ class GameScreen(Screen):
             self.tick = 0
 
     def draw(self):
-        self.cat_ss = pygame.image.load(
-            'imgs/'+self.cat_img+'_spritesheet.png')
+        self.cat_ss = self.get_img(self.cat_img+'_spritesheet')
         self.cat_ss = pygame.transform.smoothscale(
             self.cat_ss, (self.cat_ss.get_width()/2, self.cat_ss.get_height()/2))
         pygame.display.set_caption("Snakat - Game: " + str(self.points))
@@ -180,8 +180,7 @@ class GameScreen(Screen):
         self.surface.blit(pygame.transform.rotate(sub_head, self.head_direction * -90), (self.start_x + TILES_SIZE *
                                                                                          self.head[0], self.start_y +
                                                                                          TILES_SIZE * self.head[1]))
-        food_sprite = pygame.image.load(
-            'imgs/'+self.food_img+'.png').convert_alpha()
+        food_sprite = self.get_img(self.food_img) 
         self.surface.blit(food_sprite, (self.start_x + TILES_SIZE *
                                         self.food[0], self.start_y + TILES_SIZE * self.food[1]))
 
