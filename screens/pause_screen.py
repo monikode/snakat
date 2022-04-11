@@ -13,7 +13,7 @@ class PauseScreen(Screen):
             Button("imgs/button_reset.png", 400, 500, 191, 100,
                    self.reset_game),
             Button("imgs/button_config.png", 400, 500, 88, 85,
-                   lambda: self.change_screen(CONFIG_SCREEN)),
+                   self.to_config),
         ]
 
         self.bg = pygame.image.load("imgs/pause_bg.png")
@@ -22,7 +22,12 @@ class PauseScreen(Screen):
         pass
 
     def reset_game(self):
+        self.paused = False
         self.change_screen(GAME_SCREEN)
+
+    def to_config(self):
+        self.paused = False
+        self.change_screen(CONFIG_SCREEN)
 
     def game(self):
         pass

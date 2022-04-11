@@ -26,9 +26,9 @@ class EndGameScreen(Screen):
         super().draw_frame()
 
         self.buttons[0].set_pos(
-            410 - 50 + self.transition_animation * (50 / self.transition), 430)
+            435- 50 + self.transition_animation * (50 / self.transition), 430)
         self.buttons[1].set_pos(
-            675 + 50 - self.transition_animation * (50 / self.transition), 430)
+            710 + 50 - self.transition_animation * (50 / self.transition), 430)
 
         pygame.display.set_caption("Snakat - Game Over")
         self.surface.blit(pygame.transform.scale(
