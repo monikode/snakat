@@ -3,6 +3,7 @@ from config import INITIAL_SCREEN
 from screens.game_screen import GameScreen
 from screens.initial_screen import InitialScreen
 from screens.config_screen import ConfigScreen
+from screens.pause_screen import PauseScreen
 
 game_loop = True
 SCREENS = [InitialScreen(), ConfigScreen(), GameScreen()]
